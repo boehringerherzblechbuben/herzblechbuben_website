@@ -44,7 +44,7 @@
   --schrift-text:"Jost", sans-serif;
   --schrift-button:"Nunito", sans-serif;
   --schrift-klein:"Hind", sans-serif;
-  --schrift-zier:"Nothing You Could Do", cursive, sans-serif;
+  --schrift-display:"Bree Serif", Georgia, serif;   /* große Hero-Überschrift, nur Schnitt 400 */
 
   /* Maße */
   --breite-inhalt:1420px;        /* Standardbreite Inhaltsbereich    */
@@ -202,8 +202,9 @@ hr{border:0}
 .hero > .overlay{position:absolute; inset:0; background-color:var(--dunkelbraun); opacity:.45}
 .hero-inner{position:relative; z-index:2; width:900px; max-width:90%; padding:120px 0}
 .hero h1{
-  font-family:var(--schrift-zier); font-size:80px; font-weight:400;
-  color:#fff; text-transform:capitalize;
+  font-family:var(--schrift-display); font-weight:400;
+  font-size:clamp(38px, 7vw, 80px); letter-spacing:-.01em;
+  color:#fff;
 }
 .hero .text{margin-top:20px; color:var(--beige)}
 
