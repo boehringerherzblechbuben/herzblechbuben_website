@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="683" height="1024" viewBox="0 0 683 1024">
+<rect width="100%" height="100%" fill="#d8d8d8"/>
+<rect x="20" y="20" width="643" height="984" fill="none" stroke="#00000033" stroke-width="3" stroke-dasharray="15 15"/>
+<g fill="none" stroke="#00000033" stroke-width="3"><path d="M20 20 L663 1004"/><path d="M663 20 L20 1004"/></g>
+<text x="50%" y="48%" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="42" font-weight="600" fill="#00000099">Portrait 1</text>
+<text x="50%" y="48%" dy="57" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="26" fill="#00000099">683 &#215; 1024</text>
+</svg>

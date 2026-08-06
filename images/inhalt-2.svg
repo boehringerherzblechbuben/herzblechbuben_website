@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1036" height="700" viewBox="0 0 1036 700">
+<rect width="100%" height="100%" fill="#d8d8d8"/>
+<rect x="21" y="21" width="994" height="658" fill="none" stroke="#00000033" stroke-width="3" stroke-dasharray="15 15"/>
+<g fill="none" stroke="#00000033" stroke-width="3"><path d="M21 21 L1015 679"/><path d="M1015 21 L21 679"/></g>
+<text x="50%" y="48%" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="43" font-weight="600" fill="#00000099">Inhaltsbild 2</text>
+<text x="50%" y="48%" dy="58" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="27" fill="#00000099">1036 &#215; 700</text>
+</svg>

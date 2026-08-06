@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+<rect width="100%" height="100%" fill="#ffffff18"/>
+<rect x="18" y="18" width="564" height="564" fill="none" stroke="#ffffff55" stroke-width="2" stroke-dasharray="13 13"/>
+<g fill="none" stroke="#ffffff55" stroke-width="2"><path d="M18 18 L582 582"/><path d="M582 18 L18 582"/></g>
+<text x="50%" y="48%" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="44" font-weight="600" fill="#ffffffcc">Logo hell</text>
+<text x="50%" y="48%" dy="59" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="27" fill="#ffffffcc">600 &#215; 600</text>
+</svg>

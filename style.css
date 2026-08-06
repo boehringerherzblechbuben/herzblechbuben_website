@@ -1,0 +1,324 @@
+/* =========================================================================
+   Herzblechbuben · gemeinsames Stylesheet für alle Seiten
+   -------------------------------------------------------------------------
+   Aufbau:
+     1  Design-Tokens (Farben, Schriften, Maße, Bilder)
+     2  Basis / Reset
+     3  Kopfbereich + Navigation
+     4  Layout-Bausteine (Section, Wrap, Raster)
+     5  Textbausteine, Buttons, Trenner
+     6  Seitenbausteine (Hero, Teaser, Team, Termine, Downloads, Kontakt)
+     7  Fußbereich
+     8  Platzhalter-Kennzeichnung
+     9  Hilfsklassen
+   ========================================================================= */
+
+/* ---------- 1. Design-Tokens ---------------------------------------------
+   Alles Anpassbare an einer Stelle. Wer die Seite umfärben oder andere
+   Schriften einsetzen will, ändert nur diesen Block.
+   ------------------------------------------------------------------------ */
+:root{
+  /* Palette */
+  --beige:#f2ebdd;
+  --beige-hell:#faf6ef;
+  --taupe:#ac9484;
+  --taupe-dunkel:#8a7466;
+  --waldgruen:#2e4a34;
+  --waldgruen-hell:#3f6448;
+  --dunkelbraun:#33281f;
+  --grau:#6f6a63;
+  --grau-hell:#e3ddd1;
+
+  /* Rollen – hierüber wird im ganzen Stylesheet gearbeitet */
+  --farbe-text:var(--grau);            /* Fließtext                        */
+  --farbe-titel:var(--dunkelbraun);    /* Überschriften                    */
+  --farbe-linie:var(--waldgruen);      /* Trennstriche                     */
+  --farbe-akzent:var(--taupe);         /* Trennband, Icons, Kleintitel     */
+  --farbe-rahmen:var(--grau-hell);     /* Listen- und Kartenlinien         */
+  --farbe-flaeche:var(--beige-hell);   /* Inhaltsflächen                   */
+  --farbe-flaeche-2:var(--beige);      /* leicht abgesetzte Flächen        */
+  --farbe-platzhalter:#7d766d;         /* noch zu ersetzender Text         */
+
+  /* Schriften */
+  --schrift-titel:"Jost", sans-serif;
+  --schrift-text:"Jost", sans-serif;
+  --schrift-button:"Nunito", sans-serif;
+  --schrift-klein:"Hind", sans-serif;
+  --schrift-zier:"Nothing You Could Do", cursive, sans-serif;
+
+  /* Maße */
+  --breite-inhalt:1420px;        /* Standardbreite Inhaltsbereich    */
+  --breite-schmal:1000px;        /* Fließtextbreite                  */
+  --radius:0;                    /* eckig – keine abgerundeten Ecken */
+  --abstand-section:70px;
+
+  /* Bilder – hier die eigenen Dateien eintragen */
+  --bild-hero:url("images/hero.svg");
+  --bild-seitenkopf:url("images/seitenkopf.svg");
+  --bild-band:url("images/band.svg");
+  --bild-hintergrund:url("images/hintergrund.svg");
+}
+
+/* ---------- 2. Basis ------------------------------------------------------ */
+*,*::before,*::after{box-sizing:border-box}
+
+/* 1rem = 10px. Buttons und Kleintexte rechnen damit. */
+html{font-size:62.5%; overflow-x:hidden; -webkit-text-size-adjust:100%}
+
+body{
+  margin:0; background-color:var(--farbe-flaeche);
+  font-family:var(--schrift-text); font-size:16px; line-height:1.8;
+  color:var(--farbe-text); overflow-wrap:break-word;
+}
+img{max-width:100%; height:auto; border:0; vertical-align:middle}
+a{color:inherit; text-decoration:none; transition:color .3s ease}
+h1,h2,h3,h4,h5,h6{margin:0; font-family:var(--schrift-titel); color:var(--farbe-titel); line-height:1.3}
+p{margin:0 0 18px}
+p:last-child{margin-bottom:0}
+ul{margin:0; padding:0; list-style:none}
+hr{border:0}
+
+:focus-visible{outline:3px solid var(--waldgruen); outline-offset:3px}
+.hero :focus-visible,.site-header :focus-visible,.band :focus-visible{outline-color:#fff}
+
+.screen-reader-text{
+  position:absolute; width:1px; height:1px; margin:-1px; padding:0;
+  overflow:hidden; clip:rect(0,0,0,0); border:0;
+}
+.skip-link{position:absolute; left:-9999px}
+.skip-link:focus{
+  left:10px; top:10px; z-index:100000; padding:10px;
+  background:var(--farbe-flaeche); color:var(--farbe-titel);
+}
+
+/* ---------- 3. Kopfbereich ------------------------------------------------
+   Liegt transparent über dem Hero. Auf Unterseiten identisch.
+   ------------------------------------------------------------------------ */
+.site-header{
+  position:absolute; top:0; left:0; right:0; z-index:9999;
+  background-color:transparent;
+}
+.site-header-inner{
+  display:flex; align-items:center; justify-content:space-between;
+  width:var(--breite-inhalt); max-width:90%; margin:0 auto; padding:30px 0;
+}
+.site-logo img{width:auto; max-width:110px; max-height:110px; transition:opacity .3s}
+.site-logo a:hover img{opacity:.6}
+
+.main-nav ul{display:flex; gap:6px}
+.main-nav a{
+  display:block; padding:10px 15px; color:#fff;
+  font-size:13px; letter-spacing:.7px; line-height:1.4;
+}
+.main-nav a:hover{color:var(--beige)}
+.main-nav a[aria-current="page"]{color:#fff; text-decoration:underline; text-underline-offset:6px}
+
+.nav-toggle{
+  display:none; background:none; border:0; cursor:pointer;
+  padding:8px 12px; color:#fff; font-size:26px; line-height:1;
+}
+.mobile-nav{display:none; background-color:var(--farbe-flaeche)}
+.mobile-nav.is-open{display:block}
+.mobile-nav a{
+  display:block; padding:12px 30px; color:var(--farbe-titel);
+  font-family:var(--schrift-titel); font-size:15px; font-weight:600;
+  border-bottom:1px solid var(--farbe-rahmen);
+}
+.mobile-nav a:hover{background-color:var(--farbe-flaeche-2)}
+
+@media (max-width:959px){
+  .main-nav{display:none}
+  .nav-toggle{display:block}
+  .site-header-inner{padding:16px 0}
+  .site-logo img{max-width:70px; max-height:70px}
+}
+
+/* ---------- 4. Layout-Bausteine ------------------------------------------ */
+.section{position:relative; padding:var(--abstand-section) 0}
+.section > .overlay{position:absolute; inset:0; background-color:var(--farbe-flaeche); opacity:.95}
+.section.is-tinted{background-color:var(--farbe-flaeche-2)}
+.section.has-bild{
+  background-image:var(--bild-hintergrund);
+  background-position:center center; background-size:cover; background-repeat:no-repeat;
+}
+@media (min-width:1025px){ .section.has-bild{background-attachment:fixed} }
+
+.wrap{position:relative; z-index:2; width:var(--breite-inhalt); max-width:90%; margin:0 auto}
+.wrap.is-narrow{width:var(--breite-schmal)}
+
+.grid{display:grid; gap:40px}
+.grid-2{grid-template-columns:repeat(2,1fr)}
+.grid-3{grid-template-columns:repeat(3,1fr)}
+.grid-4{grid-template-columns:repeat(4,1fr)}
+@media (max-width:1024px){ .grid-3,.grid-4{grid-template-columns:repeat(2,1fr)} }
+@media (max-width:767px){
+  .grid-2,.grid-3,.grid-4{grid-template-columns:1fr}
+  .section{padding:45px 0}
+}
+
+/* Zweispalter Bild + Text */
+.split{display:flex; align-items:center; gap:50px; flex-wrap:wrap}
+.split > *{flex:1 1 380px; min-width:0}
+.split img{width:100%; border-radius:var(--radius)}
+.split.is-reverse{flex-direction:row-reverse}
+@media (max-width:767px){
+  .split,.split.is-reverse{flex-direction:column; gap:30px}
+  .split .text{text-align:center}
+  .split .text .rule{margin-left:auto; margin-right:auto}
+}
+
+/* ---------- 5. Text, Buttons, Trenner ------------------------------------ */
+.titel{font-size:30px; font-weight:600}
+.titel.is-lg{font-size:35px}
+.titel.is-sm{font-size:24px}
+.eyebrow{
+  margin:0 0 6px; font-family:var(--schrift-titel); font-size:14px; font-weight:600;
+  text-transform:uppercase; letter-spacing:2px; color:var(--farbe-akzent);
+}
+.rule{width:30px; border-top:3px solid var(--farbe-linie); margin:16px 0 26px}
+.rule.is-center{margin-left:auto; margin-right:auto}
+.text{font-size:16px; line-height:1.8; color:var(--farbe-text)}
+
+.button{
+  display:inline-block; padding:12px 24px; min-height:40px; line-height:1;
+  background-color:transparent; border:2px solid var(--farbe-titel); border-radius:var(--radius);
+  font-family:var(--schrift-button); font-size:1.6rem; font-weight:600;
+  color:var(--farbe-titel); text-align:center; transition:all .3s;
+}
+.button:hover,.button:focus{background-color:var(--waldgruen); color:#fff; border-color:var(--waldgruen)}
+.button.is-small{padding:9px 18px; min-height:0; font-size:1.4rem}
+.button.is-light{border-color:#fff; color:#fff}
+.button.is-light:hover{background-color:#fff; color:var(--farbe-titel); border-color:#fff}
+
+/* ---------- 6. Seitenbausteine ------------------------------------------- */
+
+/* Hero der Startseite: volle Bildschirmhöhe */
+.hero{
+  position:relative; height:100vh; min-height:520px;
+  display:flex; align-items:center; justify-content:center; text-align:center;
+  background-image:var(--bild-hero);
+  background-position:center center; background-size:cover; background-repeat:no-repeat;
+}
+.hero > .overlay{position:absolute; inset:0; background-color:var(--dunkelbraun); opacity:.45}
+.hero-inner{position:relative; z-index:2; width:900px; max-width:90%; padding:120px 0}
+.hero h1{
+  font-family:var(--schrift-zier); font-size:80px; font-weight:400;
+  color:#fff; text-transform:capitalize;
+}
+.hero .text{margin-top:20px; color:var(--beige)}
+
+/* Seitenkopf der Unterseiten: gleiches Muster, anderes Bild */
+.seitenkopf{background-image:var(--bild-seitenkopf)}
+
+/* Wellenkante am unteren Hero-Rand */
+.welle{position:absolute; left:0; bottom:-1px; width:100%; line-height:0; overflow:hidden; z-index:3}
+.welle svg{display:block; width:calc(270% + 1.3px); height:35px; position:relative; left:50%;
+           transform:translateX(-50%) rotateY(180deg)}
+.welle .fill{fill:var(--farbe-flaeche)}
+
+/* Farbiges Trennband zwischen Abschnitten */
+.band{
+  min-height:100px; padding:60px 0;
+  background-color:var(--farbe-akzent); background-image:var(--bild-band);
+  background-position:center center; background-size:cover;
+}
+
+/* Teaser-Kachel (Startseite) */
+.teaser img{width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:var(--radius); display:block}
+.teaser h3{margin:20px 0 0; font-size:22px; font-weight:600}
+.teaser .text{margin-top:8px}
+.teaser .button{margin-top:18px}
+
+/* Team-Karte */
+.person img{width:100%; aspect-ratio:2/3; object-fit:cover; border-radius:var(--radius); display:block}
+.person h3{margin:22px 0 2px; font-size:24px; font-weight:600}
+.person .rolle{margin:0 0 12px; font-style:italic; color:var(--farbe-text)}
+
+/* Terminliste */
+.termine{border-top:1px solid var(--farbe-rahmen)}
+.termin{
+  display:flex; align-items:center; gap:26px; flex-wrap:wrap;
+  padding:22px 0; border-bottom:1px solid var(--farbe-rahmen);
+}
+.termin .datum{flex:0 0 130px; font-family:var(--schrift-titel); font-size:17px; font-weight:600; color:var(--farbe-titel)}
+.termin .ort{flex:1 1 320px}
+.termin .aktion{flex:0 0 auto; margin-left:auto}
+@media (max-width:767px){
+  .termin{gap:6px}
+  .termin .datum,.termin .ort{flex:1 0 100%}
+  .termin .aktion{margin:10px 0 0}
+}
+
+/* Download-Karte */
+.download .icon{width:90px; height:90px; object-fit:contain; display:block; margin-bottom:18px}
+.download h3{margin:0 0 10px; font-size:24px; font-weight:600}
+.download .text{margin-bottom:20px}
+
+/* Kontaktangaben */
+.kontaktliste{line-height:2.2}
+.kontaktliste a{color:var(--farbe-titel)}
+.kontaktliste a:hover{color:var(--farbe-akzent)}
+
+/* Rechtstexte */
+.rechtstext h2{margin:38px 0 10px; font-size:22px; font-weight:600}
+.rechtstext h2:first-child{margin-top:0}
+
+/* ---------- 7. Fußbereich ------------------------------------------------ */
+.site-footer{
+  position:relative; background-color:var(--farbe-flaeche-2);
+  padding:40px 0 30px; border-top:1px solid var(--farbe-rahmen);
+}
+.site-footer-inner{
+  display:flex; align-items:center; justify-content:space-between; gap:30px; flex-wrap:wrap;
+  width:var(--breite-inhalt); max-width:90%; margin:0 auto;
+}
+.site-footer .footer-logo img{width:120px}
+.social{display:flex; gap:20px}
+.social a{display:inline-flex; width:35px; height:35px; align-items:center; justify-content:center; color:var(--farbe-titel)}
+.social a:hover{color:var(--farbe-akzent)}
+.social svg{width:100%; height:100%; fill:currentColor}
+.footer-links{display:flex; gap:50px}
+.footer-links a{
+  font-family:var(--schrift-klein); font-size:1.4rem; font-weight:600;
+  text-transform:uppercase; color:var(--farbe-titel);
+}
+.footer-links a:hover{color:var(--farbe-akzent)}
+@media (max-width:767px){
+  .site-footer-inner{flex-direction:column; text-align:center}
+  .footer-links{gap:30px}
+}
+
+/* Zurück-nach-oben */
+.scroll-top{
+  position:fixed; right:20px; bottom:20px; width:40px; height:40px; line-height:40px;
+  text-align:center; font-size:22px; background-color:var(--waldgruen); color:#fff;
+  border-radius:var(--radius); opacity:0; visibility:hidden; transition:all .3s; z-index:9998;
+}
+.scroll-top.is-visible{opacity:1; visibility:visible}
+.scroll-top:hover{background-color:var(--dunkelbraun); color:#fff}
+
+/* ---------- 8. Platzhalter ------------------------------------------------
+   Diese Klassen markieren offene Stellen. Beim Befüllen einfach entfernen.
+   ------------------------------------------------------------------------ */
+.ph-badge{
+  display:inline-block; margin-bottom:16px; padding:4px 11px; border-radius:var(--radius);
+  background-color:var(--grau-hell); color:var(--taupe-dunkel); font-family:var(--schrift-titel);
+  font-size:12px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase;
+}
+.ph-box{
+  border:2px dashed var(--taupe); border-radius:var(--radius); background-color:var(--farbe-flaeche-2);
+  padding:26px 20px; text-align:center; font-size:14px; line-height:1.7; color:var(--farbe-platzhalter);
+}
+.ph-text{color:var(--farbe-platzhalter); font-style:italic}
+
+/* ---------- 9. Hilfsklassen ---------------------------------------------- */
+.is-center{text-align:center}
+.mt-0{margin-top:0}
+.mt-s{margin-top:16px}
+.mt-m{margin-top:30px}
+.mt-l{margin-top:50px}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none !important; transition:none !important}
+  html{scroll-behavior:auto}
+}
